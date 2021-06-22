@@ -1,7 +1,7 @@
 class Mover {
  
   PVector location;
-  PVector velocity = PVector.random2D();
+  PVector velocity = new PVector(0, 0);
   PVector acceleration = new PVector(0, 0);
   float mass;
   

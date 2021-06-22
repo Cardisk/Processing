@@ -6,6 +6,8 @@
 */
 
 Mover ball;
+PVector gravity = new PVector(0, 0.3);
+PVector wind = new PVector(0.1, 0);
 
 void setup() {
   size(800, 600);
@@ -17,32 +19,29 @@ void pushBack() {
   PVector yPush;
   
   if((width - ball.location.x) < (width / 8)) {
-    xPush = new PVector(map(width - ball.location.x, 0, (width / 8) - 1, -10, -50), 0);
+    xPush = new PVector(map(width - ball.location.x, 0, (width / 8) - 1, -5, -10), 0);
     ball.applyForce(xPush);
   }
   if(ball.location.x < (width / 8)) {
-    xPush = new PVector(map(width - ball.location.x, 0, (width / 8) - 1, -10, -50), 0);
+    xPush = new PVector(map(width - ball.location.x, 0, (width / 8) - 1, 5, 10), 0);
     ball.applyForce(xPush);
   }
   
   if((height - ball.location.y) < (height / 8)) {
-    yPush = new PVector(0, map(height - ball.location.y, 0, (height / 8) - 1, -10, -50));
+    yPush = new PVector(0, map(height - ball.location.y, 0, (height / 8) - 1, -5, -10));
     ball.applyForce(yPush);
   }
   if(ball.location.y < (height / 8)) {
-    yPush = new PVector(0, map(height - ball.location.y, 0, (height / 8) - 1, -10, -50));
+    yPush = new PVector(0, map(height - ball.location.y, 0, (height / 8) - 1, 5, 10));
     ball.applyForce(yPush);
   }
-}
-
-void mousePressed() {
-  pushBack();
 }
 
 void draw() {
   background(255);
-  ball.checkEdges();
-  //pushBack();
+  ball.applyForce(gravity);
+  ball.applyForce(wind);
+  pushBack();
   ball.update();
   ball.show();
 }
